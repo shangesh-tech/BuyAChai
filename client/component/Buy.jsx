@@ -27,11 +27,12 @@ const Buy = () => {
     const buyChai = async (e) => {
         e.preventDefault();
         try {
-            setLoading(true);
-            setShowModal(true);
-            setTransactionStatus('processing');
 
             if (typeof window.ethereum !== 'undefined') {
+                setLoading(true);
+                setShowModal(true);
+                setTransactionStatus('processing');
+
                 const provider = new ethers.BrowserProvider(window.ethereum);
                 const signer = await provider.getSigner();
                 const contract = new ethers.Contract(
@@ -64,6 +65,8 @@ const Buy = () => {
                     setShowModal(false);
                     setFormData({ name: '', message: '' });
                 }, 2000);
+            } else {
+                toast.error('Please connect your wallet before buying a chai...');
             }
         } catch (error) {
             console.error('Error:', error);

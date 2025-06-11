@@ -79,6 +79,50 @@ const TransactionList = () => {
         }).format(date);
     };
 
+    const formatRelativeTime = (date) => {
+        const now = new Date();
+        const diffInSeconds = Math.floor((now - date) / 1000);
+
+        // Less than a minute
+        if (diffInSeconds < 60) {
+            return 'just now';
+        }
+
+        // Less than an hour
+        if (diffInSeconds < 3600) {
+            const minutes = Math.floor(diffInSeconds / 60);
+            return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
+        }
+
+        // Less than a day
+        if (diffInSeconds < 86400) {
+            const hours = Math.floor(diffInSeconds / 3600);
+            return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
+        }
+
+        // Less than a week
+        if (diffInSeconds < 604800) {
+            const days = Math.floor(diffInSeconds / 86400);
+            return `${days} ${days === 1 ? 'day' : 'days'} ago`;
+        }
+
+        // Less than a month
+        if (diffInSeconds < 2592000) {
+            const weeks = Math.floor(diffInSeconds / 604800);
+            return `${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`;
+        }
+
+        // Less than a year
+        if (diffInSeconds < 31536000) {
+            const months = Math.floor(diffInSeconds / 2592000);
+            return `${months} ${months === 1 ? 'month' : 'months'} ago`;
+        }
+
+        // More than a year
+        const years = Math.floor(diffInSeconds / 31536000);
+        return `${years} ${years === 1 ? 'year' : 'years'} ago`;
+    };
+
     if (loading) {
         return (
             <div className="min-h-screen pt-20 pb-10 px-4 font-space-grotesk">
@@ -146,7 +190,7 @@ const TransactionList = () => {
                             transition={{ delay: 0.3 }}
                             className="text-gray-400 text-center py-8 text-lg"
                         >
-                            No transactions yet. Be the first one to buy a chai! ☕
+                            Connect your wallet to see the transactions made... ☕
                         </motion.p>
                     ) : (
                         <motion.div
@@ -174,7 +218,7 @@ const TransactionList = () => {
                                                     {tx.message}
                                                 </p>
                                                 <div className="flex items-center space-x-2 text-sm text-gray-400">
-                                                    <span>{formatDate(tx.timestamp)}</span>
+                                                    <span title={formatDate(tx.timestamp)}>{formatRelativeTime(tx.timestamp)}</span>
                                                     <span>•</span>
                                                     <span className="font-mono hover:text-purple-400 transition-colors duration-200">
                                                         {formatAddress(tx.from)}

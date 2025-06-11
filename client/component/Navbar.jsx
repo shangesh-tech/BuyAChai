@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ethers } from 'ethers';
 import { motion, AnimatePresence } from 'framer-motion';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
     const [isConnected, setIsConnected] = useState(false);
@@ -22,7 +23,10 @@ const Navbar = () => {
                 setIsConnected(true);
                 await updateWalletInfo(provider, accounts[0]);
             } else {
-                alert('Please install MetaMask!');
+                toast.error('Please install MetaMask or any other wallet');
+                setTimeout(() => {
+                    window.open('https://metamask.io/download/', '_blank');
+                }, 1000);
             }
         } catch (error) {
             console.error('Error connecting wallet:', error);
