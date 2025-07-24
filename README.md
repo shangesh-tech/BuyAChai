@@ -6,6 +6,12 @@ A full-stack decentralized application (dApp) that allows users to buy virtual c
 
 BuyAChai is a tip-based platform where supporters can send Ethereum to content creators along with personalized messages. It's similar to "Buy Me a Coffee" but built on blockchain technology, ensuring transparency, decentralization, and immutable transaction records.
 
+---
+
+[▶️ Watch Project Overview Video](https://drive.google.com/file/d/11YzXMuDJDiKoHsf6nH0u_1xEMpcG8U2M/view?usp=sharing)
+
+---
+
 ## 🏗️ Architecture
 
 ```
